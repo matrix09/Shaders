@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalHelper : MonoBehaviour {
+
+//[System.Serializable]
+//public class Test : System.Object
+//{
+//    public int p = 5;
+//    public Color c = Color.white;
+//}
+
+
+public class GlobalHelper {
 
     public static Dictionary<eSceneType, SceneInfo> g_SceneDic = new Dictionary<eSceneType, SceneInfo>();
 

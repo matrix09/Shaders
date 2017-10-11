@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class HexGrid : MonoBehaviour
 {
 
+
     #region 变量
     public int width = 6;
 
@@ -19,6 +20,9 @@ public class HexGrid : MonoBehaviour
     Canvas gridCanvas;
 
     HexMesh hexMesh;
+
+    public HexCoordinate hexCoord;
+
     #endregion
 
     #region 系统接口
@@ -52,11 +56,11 @@ public class HexGrid : MonoBehaviour
                 HexCell cell = cellArray[i] = Instantiate<HexCell>(CellPrefab);
                 cell.transform.SetParent(transform, false);
                 cell.transform.localPosition = position;
-
+                
                 Text label = Instantiate<Text>(cellLabelPrefab);
                 label.rectTransform.SetParent(gridCanvas.transform, false);
                 label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-                label.text = x.ToString() + "\n" + z.ToString();
+                label.text = (x - z/2).ToString() + "\n" + z.ToString();
             }
         }
 
