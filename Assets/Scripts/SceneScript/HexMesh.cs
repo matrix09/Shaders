@@ -10,11 +10,16 @@ public class HexMesh : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
     Mesh hexMesh;
+    MeshCollider meshCol = null;
     #endregion
 
     #region 系统接口
     void OnEnable()
     {
+
+        if (!gameObject.GetComponent<MeshCollider>() && null == meshCol)
+            meshCol = gameObject.AddComponent<MeshCollider>();
+
         GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
         hexMesh.name = "Hex Mesh";
         vertices = new List<Vector3>();
@@ -40,6 +45,7 @@ public class HexMesh : MonoBehaviour
     #region 处理顶点信息
     public void Triangulate(HexCell[] cells)
     {
+        
         if (null == cells)
         {
             Debug.LogError("Exception Error:  HexCell Array is Empty");
@@ -56,6 +62,7 @@ public class HexMesh : MonoBehaviour
         hexMesh.vertices = vertices.ToArray();
         hexMesh.triangles = triangles.ToArray();
         hexMesh.RecalculateNormals();
+        meshCol.sharedMesh = hexMesh;
 
     }
 
