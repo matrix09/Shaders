@@ -23,20 +23,12 @@ public class HexGrid : MonoBehaviour
 
     public HexCoordinate hexCoord;
 
-    public Color TouchColor;
-
-    public Color DefaultColor;
     #endregion
 
     #region 系统接口
     void Start()
     {
         InitializeHexCells();
-    }
-
-    void Update()
-    {
-        DetectTouchCoordinate();
     }
 
     void OnDisable()
@@ -62,7 +54,7 @@ public class HexGrid : MonoBehaviour
                 position.z = z * HexMetrices.OuterRadius * 1.5f;
                 position.y = 0f;
                 HexCell cell = cellArray[i] = Instantiate<HexCell>(CellPrefab);
-                cell.HexCellColor = DefaultColor;
+                cell.HexCellColor = Color.white;
                 cell.transform.SetParent(transform, false);
                 cell.transform.localPosition = position;
 
@@ -80,25 +72,9 @@ public class HexGrid : MonoBehaviour
 
 
     #region 检测点中的点坐标和对应的hex cell
-    void DetectTouchCoordinate()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            HandleInput();
-        }
-    }
 
-    void HandleInput()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            TouchCell(hit.point);
-        }
-    }
 
-    void TouchCell(Vector3 point)       //点中了某一个cell
+    public void TouchCell(Vector3 point, Color color)       //点中了某一个cell
     {
         Debug.Log(point);
 
@@ -157,7 +133,7 @@ public class HexGrid : MonoBehaviour
             return;
         }
 
-        cellArray[index].HexCellColor = TouchColor;
+        cellArray[index].HexCellColor = color;
 
         hexMesh.Triangulate(cellArray);
         
