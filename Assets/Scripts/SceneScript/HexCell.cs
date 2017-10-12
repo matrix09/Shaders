@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HexCell : MonoBehaviour {
 
+    public Color HexCellColor;
+
 	// Use this for initialization
 	void Start () {
 		

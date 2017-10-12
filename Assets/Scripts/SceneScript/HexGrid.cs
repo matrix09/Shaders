@@ -23,8 +23,9 @@ public class HexGrid : MonoBehaviour
 
     public HexCoordinate hexCoord;
 
-  
+    public Color TouchColor;
 
+    public Color DefaultColor;
     #endregion
 
     #region 系统接口
@@ -51,18 +52,17 @@ public class HexGrid : MonoBehaviour
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
 
-        
-
         cellArray = new HexCell[width * height];
         for (int z = 0, i = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++, i++)
             {
-                Vector3 position;// = new Vector3(x * 10f, 0f, z * 10f);
+                Vector3 position;
                 position.x = (x + z * 0.5f - z/2) * HexMetrices.InnerRadius * 2;
                 position.z = z * HexMetrices.OuterRadius * 1.5f;
                 position.y = 0f;
                 HexCell cell = cellArray[i] = Instantiate<HexCell>(CellPrefab);
+                cell.HexCellColor = DefaultColor;
                 cell.transform.SetParent(transform, false);
                 cell.transform.localPosition = position;
 
@@ -148,6 +148,19 @@ public class HexGrid : MonoBehaviour
         Debug.LogFormat("Point x = {0}, z = {1}", iX, iZ);
 #endif
         hexCoord = HexCoordinate.GetOffSetCoordinate(iX, iZ);
+
+        //获取点中的cell的index
+        int index = hexCoord.X + hexCoord.Z * width + hexCoord.Z / 2;
+        if (index < 0 || index > cellArray.Length)
+        {
+            Debug.LogErrorFormat("Index({0}) is illegal", index);
+            return;
+        }
+
+        cellArray[index].HexCellColor = TouchColor;
+
+        hexMesh.Triangulate(cellArray);
+        
     }
 
 
