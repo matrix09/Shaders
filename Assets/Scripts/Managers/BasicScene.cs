@@ -9,7 +9,7 @@ public class BasicScene : MonoBehaviour {
         for (int i = 0; i < 1; i++)
         {
             if (GUI.Button(
-                new Rect(0, 0, 100, 50), "Leave Scene"
+                new Rect(Screen.width - 100, 0, 100, 50), "Leave Scene"
                 ))
             {
                 if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Map_Login")
