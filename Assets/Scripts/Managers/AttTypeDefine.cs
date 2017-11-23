@@ -16,6 +16,7 @@ public enum eSceneType
     Scene_ShaderFunda,
     Scene_CombinedTexture,
     Scene_SingleLight,
+    Scene_Bumpness,
     Scene_Size,
 }
 

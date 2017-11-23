@@ -31,6 +31,9 @@ public class GlobalHelper {
         g_SceneDic.Add(eSceneType.Scene_CombinedTexture, si);
         si = new SceneInfo(); si.SceneName = "Map_SingleLighting";
         g_SceneDic.Add(eSceneType.Scene_SingleLight, si);
+        si = new SceneInfo(); si.SceneName = "Map_Bumpness";
+        g_SceneDic.Add(eSceneType.Scene_Bumpness, si);
+        
     }
 
     public static void LoadLevel(eSceneType type)
